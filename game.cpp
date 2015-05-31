@@ -45,7 +45,7 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	// Load the cat
 	std::clog << "Loading cat asset" << std::endl;
 	
-	SDL_Surface* temp_surface = SDL_LoadBMP("assets/cat.bmp");
+	SDL_Surface* temp_surface = SDL_LoadBMP("../assets/cat.bmp");
 	m_texture = SDL_CreateTextureFromSurface(m_renderer, temp_surface);
 
 	SDL_FreeSurface(temp_surface);
