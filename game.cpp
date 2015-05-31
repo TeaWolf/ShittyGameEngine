@@ -78,7 +78,8 @@ void Game::handle_events()
 // Do Regular game update (like movement)
 void Game::update()
 {
-	
+	// Animate the texture through a straight line
+	m_source_rect.x = 104 * int((SDL_GetTicks() / 100) % 6);		
 }
 
 // Update m_renderer and present it to the screen
