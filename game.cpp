@@ -43,23 +43,19 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	std::clog << "Done initializing" << std::endl;
 
 	// Load the cat
-	std::clog << "Loading cat asset" << std::endl;
+	std::clog << "Loading the man asset" << std::endl;
 	
-	SDL_Surface* temp_surface = SDL_LoadBMP("../assets/cat.bmp");
+	SDL_Surface* temp_surface = SDL_LoadBMP("../assets/frames.bmp");
 	m_texture = SDL_CreateTextureFromSurface(m_renderer, temp_surface);
-
 	SDL_FreeSurface(temp_surface);
-
-	// Load cat dimensions into the source rect
-	SDL_QueryTexture(m_texture, NULL, NULL, &m_source_rect.w, &m_source_rect.h);
 
 	// Set the destination rect to the same values as teh source
 	m_dest_rect.x = m_source_rect.x = 0;
-	m_dest_rect.x = m_source_rect.y = 0;
-	m_dest_rect.w = m_source_rect.w;
-	m_dest_rect.h = m_source_rect.h;
+	m_dest_rect.y = m_source_rect.y = 0;
+	m_dest_rect.w = m_source_rect.w = 104;
+	m_dest_rect.h = m_source_rect.h = 156;
 
-	std::clog << "Done loading the cat" << std::endl;
+	std::clog << "Done loading the man" << std::endl;
 
 	return true;
 }
@@ -91,8 +87,7 @@ void Game::render()
 	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
 	SDL_RenderClear(m_renderer);
 	
-	// STUFF
-	// Render the cat!
+	// Render that shit!
 	SDL_RenderCopy(m_renderer, m_texture, &m_source_rect, &m_dest_rect);	
 
 	SDL_RenderPresent(m_renderer);
