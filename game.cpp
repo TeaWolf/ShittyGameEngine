@@ -42,6 +42,25 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 
 	std::clog << "Done initializing" << std::endl;
 
+	// Load the cat
+	std::clog << "Loading cat asset" << std::endl;
+	
+	SDL_Surface* temp_surface = SDL_LoadBMP("assets/cat.bmp");
+	m_texture = SDL_CreateTextureFromSurface(m_renderer, temp_surface);
+
+	SDL_FreeSurface(temp_surface);
+
+	// Load cat dimensions into the source rect
+	SDL_QueryTexture(m_texture, NULL, NULL, &m_source_rect.w, &m_source_rect.h);
+
+	// Set the destination rect to the same values as teh source
+	m_dest_rect.x = m_source_rect.x = 0;
+	m_dest_rect.x = m_source_rect.y = 0;
+	m_dest_rect.w = m_source_rect.w;
+	m_dest_rect.h = m_source_rect.h;
+
+	std::clog << "Done loading the cat" << std::endl;
+
 	return true;
 }
 
