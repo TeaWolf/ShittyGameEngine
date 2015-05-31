@@ -92,6 +92,8 @@ void Game::render()
 	SDL_RenderClear(m_renderer);
 	
 	// STUFF
+	// Render the cat!
+	SDL_RenderCopy(m_renderer, m_texture, &m_source_rect, &m_dest_rect);	
 
 	SDL_RenderPresent(m_renderer);
 }
