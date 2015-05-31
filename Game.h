@@ -26,4 +26,8 @@ protected:
 
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
+
+	SDL_Texture* m_Texture;
+	SDL_Rect m_source_rect;
+	SDL_Rect m_dest_rect;
 };
