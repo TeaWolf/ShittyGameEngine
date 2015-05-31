@@ -1,6 +1,6 @@
 
 # We will call the project and the executable by the same name
-set(prog_name sdl_base_prog)
+set(prog_name sdl_exercise)
 
 # Set the project name
 project(${prog_name})
