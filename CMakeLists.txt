@@ -9,4 +9,4 @@ project(${prog_name})
 add_executable(${prog_name} game.cpp main.cpp)
 
 # Link all the disired libraries
-target_link_libraries(${prog_name} sdl2)
+target_link_libraries(${prog_name} sdl2 sdl2_image)
