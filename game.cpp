@@ -45,7 +45,7 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	// Load the cat
 	std::clog << "Loading the man asset" << std::endl;
 	
-	SDL_Surface* temp_surface = SDL_LoadBMP("../assets/frames.bmp");
+	SDL_Surface* temp_surface = IMG_Load("../assets/frames_alpha.png");
 	m_texture = SDL_CreateTextureFromSurface(m_renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
 
@@ -85,7 +85,7 @@ void Game::update()
 // Update m_renderer and present it to the screen
 void Game::render()
 {
-	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
 	
 	// Render that shit!
