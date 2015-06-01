@@ -89,7 +89,7 @@ void Game::render()
 	SDL_RenderClear(m_renderer);
 	
 	// Render that shit!
-	SDL_RenderCopy(m_renderer, m_texture, &m_source_rect, &m_dest_rect);	
+	SDL_RenderCopyEx(m_renderer, m_texture, &m_source_rect, &m_dest_rect, 0, 0, SDL_FLIP_VERTICAL);	
 
 	SDL_RenderPresent(m_renderer);
 }
