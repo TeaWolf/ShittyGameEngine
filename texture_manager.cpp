@@ -2,6 +2,16 @@
 
 #include "texture_manager.h"
 
+// Initialise the instance pointer to 0
+TextureManager* TextureManager::m_instance = 0;
+
+// Make sure to only ever create one of these within the program
+TextureManager* TextureManager::instance()
+{
+	if (m_instance == 0) m_instance = new TextureManager;
+	return m_instance;
+}
+
 // Loads the specified file into the m_textures variable
 bool TextureManager::load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer){
 	std::clog << "Loading " << file_name << " as " << id << "..." << std::endl;
