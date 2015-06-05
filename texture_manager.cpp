@@ -2,12 +2,17 @@
 
 // Loads the specified file into the m_textures variable
 bool TextureManager::load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer){
+	std::clog << "Loading " << file_name << " as " << id << "..." << std::endl;
+
 	SDL_Surface* temp_surface = IMG_Load(file_name.c_str());
 	if (temp_surface == 0) 
 	{
 		std::cerr << "IMG_Load error: " << SDL_GetError() << std::endl;	
 		return false;
 	}
+
+	std::clog << "Successfully loaded " << id << " as temporary surface" << std::endl;
+	std::clog << "Creating texture for " << id << "..." << std::endl;
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
@@ -16,8 +21,14 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 		std::cerr << "SDL_CreateTextureFromSurface error: " << SDL_GetError() << std:endl;
 		return false;
 	}
+	
+	sdt::clog << "Successfully created the texture for " << id << std::endll
+	std::clog << "Adding " << id << " to the map..." << std::endl;
 
 	m_textures[id] = texture;
+
+	std::clog << "Successfuly added " << id << "to the map" << std::endl;
+
 	return true;
 }
 
