@@ -1,5 +1,7 @@
 // Teawolf
 
+#include "texture_manager.h"
+
 // Loads the specified file into the m_textures variable
 bool TextureManager::load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer){
 	std::clog << "Loading " << file_name << " as " << id << "..." << std::endl;
@@ -18,11 +20,11 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 	SDL_FreeSurface(temp_surface);
 	if (texture == 0) 
 	{
-		std::cerr << "SDL_CreateTextureFromSurface error: " << SDL_GetError() << std:endl;
+		std::cerr << "SDL_CreateTextureFromSurface error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 	
-	sdt::clog << "Successfully created the texture for " << id << std::endll
+	std::clog << "Successfully created the texture for " << id << std::endl;
 	std::clog << "Adding " << id << " to the map..." << std::endl;
 
 	m_textures[id] = texture;
@@ -33,16 +35,16 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 }
 
 // Draw a specific frame, also used for statics (which could be a source of inefficiency in the future
-void TextureManager::draw_frame(const std::string& id, int x, int y, int width, int height, int current_row = 0, int current_frame = 0, SDL_Renderer& renderer, SDL_RednerFlip flip)
+void TextureManager::draw_frame(const std::string& id, int x, int y, int width, int height, int current_row, int current_frame, SDL_Renderer* renderer, SDL_RendererFlip flip)
 {	
 	SDL_Rect srect, drect;
 	srect.x = width * current_frame;
 	srect.y = height * current_row;
-	srect.width = drect.width = width;
-	srect.height = drect.height = height;
+	srect.w = drect.w = width;
+	srect.h = drect.h = height;
 
 	drect.x = x;
 	drect.y = y;
 
-	SDL_RenderCopyEx(renderer, m_textures[id], &srect, &drect, NULL, NULL, flip);
+	SDL_RenderCopyEx(renderer, m_textures[id], &srect, &drect, 0, 0, flip);
 }
