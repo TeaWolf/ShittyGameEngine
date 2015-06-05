@@ -37,25 +37,13 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	else
 		std::clog << "Renderer ceration successful" << std::endl;
 	
+	// Load the images
+	std::clog << "Loading images..." << std::endl;
+	m_texture_manager.load("assets/alpha_frame.png", "man", m_renderer);
+	std::clog << "Done loading images" << std::endl;
+	
 	// The game has officialy started
 	m_running = true;
-
-	std::clog << "Done initializing" << std::endl;
-
-	// Load the cat
-	std::clog << "Loading the man asset" << std::endl;
-	
-	SDL_Surface* temp_surface = IMG_Load("../assets/frames_alpha.png");
-	m_texture = SDL_CreateTextureFromSurface(m_renderer, temp_surface);
-	SDL_FreeSurface(temp_surface);
-
-	// Set the destination rect to the same values as teh source
-	m_dest_rect.x = m_source_rect.x = 0;
-	m_dest_rect.y = m_source_rect.y = 0;
-	m_dest_rect.w = m_source_rect.w = 104;
-	m_dest_rect.h = m_source_rect.h = 156;
-
-	std::clog << "Done loading the man" << std::endl;
 
 	return true;
 }
@@ -79,7 +67,7 @@ void Game::handle_events()
 void Game::update()
 {
 	// Animate the texture through a straight line
-	m_source_rect.x = 104 * int((SDL_GetTicks() / 100) % 6);		
+	m_current_frame = int((SDL_GetTicks() / 100) % 6);		
 }
 
 // Update m_renderer and present it to the screen
@@ -87,9 +75,8 @@ void Game::render()
 {
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
-	
-	// Render that shit!
-	SDL_RenderCopyEx(m_renderer, m_texture, &m_source_rect, &m_dest_rect, 0, 0, SDL_FLIP_VERTICAL);	
+
+	m_texture_manager.draw_frame("man", 0, 0, 104, 156, 0, m_current_frame, renderer);
 
 	SDL_RenderPresent(m_renderer);
 }
