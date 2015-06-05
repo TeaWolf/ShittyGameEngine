@@ -9,7 +9,7 @@
 class TextureManager
 {
 public:
-	static TextureManager* instance()
+	static TextureManager* instance();
 
 	bool load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer);
 
@@ -17,7 +17,7 @@ public:
 
 private:
 	TextureManager() = default;
-	static TextureManger* m_instance;
+	static TextureManager* m_instance;
 
 	std::map<std::string, SDL_Texture*> m_textures;
 };

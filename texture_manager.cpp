@@ -17,7 +17,7 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 	std::clog << "Loading " << file_name << " as " << id << "..." << std::endl;
 
 	SDL_Surface* temp_surface = IMG_Load(file_name.c_str());
-	if (temp_surface == 0) 
+	if (temp_surface == NULL) 
 	{
 		std::cerr << "IMG_Load error: " << SDL_GetError() << std::endl;	
 		return false;
@@ -39,7 +39,7 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 
 	m_textures[id] = texture;
 
-	std::clog << "Successfuly added " << id << "to the map" << std::endl;
+	std::clog << "Successfuly added " << id << " to the map" << std::endl;
 
 	return true;
 }

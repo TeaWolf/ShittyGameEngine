@@ -29,5 +29,4 @@ protected:
 	SDL_Renderer* m_renderer;
 
 	int m_current_frame;
-	TextureManager m_texture_manager;
 };

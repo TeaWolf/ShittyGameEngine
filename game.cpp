@@ -35,11 +35,14 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 		return false;
 	}
 	else
-		std::clog << "Renderer ceration successful" << std::endl;
+		std::clog << "Renderer creation successful" << std::endl;
 	
 	// Load the images
 	std::clog << "Loading images..." << std::endl;
-	m_texture_manager.load("../assets/frames_alpha.png", "man", m_renderer);
+
+	if (TextureManager::instance() -> load("../assets/frames_alpha.png", "man", m_renderer) == false)
+		return false;
+
 	std::clog << "Done loading images" << std::endl;
 	
 	// The game has officialy started
@@ -76,7 +79,7 @@ void Game::render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
 
-	m_texture_manager.draw_frame("man", 0, 0, 104, 156, 0, m_current_frame, m_renderer);
+	TextureManager::instance() -> draw_frame("man", 0, 0, 104, 156, 0, m_current_frame, m_renderer);
 
 	SDL_RenderPresent(m_renderer);
 }
