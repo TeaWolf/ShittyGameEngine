@@ -1,1 +1,2 @@
 Change the texture manager into some kind of sprite object system
+Also create some kind of vector object system, maybe... (consider effeciency)
