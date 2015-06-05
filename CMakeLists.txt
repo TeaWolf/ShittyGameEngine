@@ -6,7 +6,7 @@ set(prog_name sdl_exercise)
 project(${prog_name})
 
 # Compile the source files into the executable
-add_executable(${prog_name} game.cpp main.cpp)
+add_executable(${prog_name} game.cpp texture_manager.cpp main.cpp)
 
 # Link all the disired libraries
 target_link_libraries(${prog_name} sdl2 sdl2_image)
