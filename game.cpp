@@ -37,7 +37,7 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	else
 		std::clog << "Renderer creation successful" << std::endl;
 	
-	// Load the images
+	// TODO something a little better than this (like loading wit the objects
 	std::clog << "Loading images..." << std::endl;
 
 	if (TextureManager::instance() -> load("../assets/frames_alpha.png", "man", m_renderer) == false)
@@ -45,6 +45,12 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 
 	std::clog << "Done loading images" << std::endl;
 	
+	// TODO fuck this
+	std::clog << "Loading GameObject and Player test" << std::endl;
+	m_obj.init(0, 100, 104, 156, "man");
+	m_player.init(0, 200, 104, 156, "man");
+	std::clog << "Done loading test obejcts" << std::endl;
+
 	// The game has officialy started
 	m_running = true;
 
@@ -69,8 +75,8 @@ void Game::handle_events()
 // Do Regular game update (like movement)
 void Game::update()
 {
-	// Animate the texture through a straight line
-	m_current_frame = int((SDL_GetTicks() / 100) % 6);		
+	m_obj.update();
+	m_player.update();
 }
 
 // Update m_renderer and present it to the screen
@@ -79,7 +85,8 @@ void Game::render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
 
-	TextureManager::instance() -> draw_frame("man", 0, 0, 104, 156, 0, m_current_frame, m_renderer);
+	m_obj.draw(m_renderer);
+	m_player.draw(m_renderer);
 
 	SDL_RenderPresent(m_renderer);
 }

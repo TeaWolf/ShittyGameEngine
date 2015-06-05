@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "texture_manager.h"
+#include "game_object.h"
+#include "player.h"
 
 class Game
 {
@@ -28,5 +30,6 @@ protected:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 
-	int m_current_frame;
+	GameObject m_obj;
+	Player m_player;	
 };

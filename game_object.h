@@ -8,11 +8,10 @@
 class GameObject
 {
 public:
-	GameObject(int x, int y, int width, int height, const std::string& texture_id);
-	virtual ~GameObject();
-	
+	virtual void init(int x, int y, int width, int height, const std::string& texture_id);	
 	virtual void update();
 	virtual void draw(SDL_Renderer* renderer);
+	virtual void clean();
 
 protected:
 	int m_x;

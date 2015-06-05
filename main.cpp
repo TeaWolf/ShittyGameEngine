@@ -20,6 +20,8 @@ int main(int agrc, char**)
 		game.handle_events();
 		game.update();
 		game.render();
+		
+		SDL_Delay(10);
 	}
 	
 	game.clean();
