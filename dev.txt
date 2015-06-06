@@ -1,2 +1,6 @@
-Change the texture manager into some kind of sprite object system
-Also create some kind of vector object system, maybe... (consider effeciency)
+Change the texture manager into some kind of sprite object system (maybe... think about effeciency)
+Study the effeciency of singleton classes
+Do some better documentation in general (do some research online)
+Maybe consider renaming some shit
+Make sure that ressources are cleaned up properly and that there are no memory leaks
+Maybe reorganize the files a bit...
