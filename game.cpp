@@ -2,10 +2,19 @@
 
 #include "Game.h"
 
+// The singleton instance function
+Game* Game::m_instance = 0;
+Game* Game::instance()
+{
+	if (m_instance == 0) m_instance = new Game;
+	return m_instance;
+}
+
 // Initialize SDL, create a window, attach a renderer to it, and set m_running to true
 // Returns true if init was successful
 bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_height, bool p_fullscreen)
 {
+	// TODO maybe some better debug output ?
 	std::clog << "Initializing..." << std::endl;
 
 	// General SDL initialisation
@@ -37,24 +46,22 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	else
 		std::clog << "Renderer creation successful" << std::endl;
 	
-	// TODO something a little better than this (like loading wit the objects
-	std::clog << "Loading images..." << std::endl;
-
-	if (TextureManager::instance() -> load("../assets/frames_alpha.png", "man", m_renderer) == false)
+	// TODO something a little better than this (like loading with the objects
+	// Image loading
+	if (TextureManager::instance()->load("../assets/frames_alpha.png", "man", m_renderer) == false)
 		return false;
-
-	std::clog << "Done loading images" << std::endl;
 	
-	// TODO fuck this
-	std::clog << "Loading GameObject and Player test" << std::endl;
-	m_obj.init(0, 100, 104, 156, "man");
-	m_player.init(0, 200, 104, 156, "man");
-	std::clog << "Done loading test obejcts" << std::endl;
-
 	// The game has officialy started
 	m_running = true;
 
+	std::clog << "Initialization successful" << std::endl;
 	return true;
+}
+
+// Adds an object to the vector
+void Game::add_object(GameObject* go)
+{
+	m_game_objects.push_back(go);
 }
 
 // Query events and update game objects
@@ -75,8 +82,8 @@ void Game::handle_events()
 // Do Regular game update (like movement)
 void Game::update()
 {
-	m_obj.update();
-	m_player.update();
+	for (GameObject* go : m_game_objects)
+		go->update();
 }
 
 // Update m_renderer and present it to the screen
@@ -85,8 +92,8 @@ void Game::render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
 
-	m_obj.draw(m_renderer);
-	m_player.draw(m_renderer);
+	for (GameObject* go : m_game_objects)
+		go->draw();
 
 	SDL_RenderPresent(m_renderer);
 }
@@ -94,7 +101,11 @@ void Game::render()
 // Clean up all game ressources
 void Game::clean()
 {
+	// TODO get rid of all the game objects once the game is finished
 	std::clog << "Cleannig up..." << std::endl;
+
+	// Destroy the TextureManager and all it's textures to prevent all hell breaking loose
+	TextureManager::instance()->clean();
 
 	if (m_renderer)
 	{
@@ -110,5 +121,9 @@ void Game::clean()
 
 	SDL_Quit();
 	
+	// Free up memory
+	delete m_instance;
+	Game::m_instance = 0;
+
 	std::clog << "Done cleaning up" << std::endl;
 }
