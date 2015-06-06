@@ -2,10 +2,8 @@
 
 #include "texture_manager.h"
 
-// Initialise the instance pointer to 0
+// Make sure this is only a singleton
 TextureManager* TextureManager::m_instance = 0;
-
-// Make sure to only ever create one of these within the program
 TextureManager* TextureManager::instance()
 {
 	if (m_instance == 0) m_instance = new TextureManager;
@@ -13,7 +11,8 @@ TextureManager* TextureManager::instance()
 }
 
 // Loads the specified file into the m_textures variable
-bool TextureManager::load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer){
+bool TextureManager::load(const std::string& file_name, const std::string& id, SDL_Renderer* renderer)
+{
 	std::clog << "Loading " << file_name << " as " << id << "..." << std::endl;
 
 	SDL_Surface* temp_surface = IMG_Load(file_name.c_str());
@@ -24,7 +23,6 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 	}
 
 	std::clog << "Successfully loaded " << id << " as temporary surface" << std::endl;
-	std::clog << "Creating texture for " << id << "..." << std::endl;
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp_surface);
 	SDL_FreeSurface(temp_surface);
@@ -35,7 +33,6 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 	}
 	
 	std::clog << "Successfully created the texture for " << id << std::endl;
-	std::clog << "Adding " << id << " to the map..." << std::endl;
 
 	m_textures[id] = texture;
 
@@ -57,4 +54,18 @@ void TextureManager::draw_frame(const std::string& id, int x, int y, int width, 
 	drect.y = y;
 
 	SDL_RenderCopyEx(renderer, m_textures[id], &srect, &drect, 0, 0, flip);
+}
+
+// Free up ressources
+void TextureManager::clean()
+{
+	// Destory all of the SDL_Textures
+	for (auto tex : m_textures)
+		SDL_DestroyTexture(tex.second);
+
+	std::clog << "Destroyed all textures" << std::endl;
+
+	// Free up the instnace of TextureManager
+	delete m_instance;
+	m_instance = 0;
 }
