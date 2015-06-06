@@ -1,30 +1,31 @@
 // TeaWolf
 
 #include "game.h"
-
+#include "player.h"
 
 int main(int agrc, char**)
 {
-	Game game;
-
 	// Attempt to initialize the game
-	if (!game.init("The fucking game", 0, 0, 640, 480, false))
+	if (!Game::instance()->init("The fucking game", 0, 0, 640, 480, false))
 	{
-		game.clean();
+		Game::instance()->clean();
 		exit(EXIT_FAILURE);
 	}
+
+	// Add the player object
+	Game::instance()->add_object(new Player(new ObjectLoadParameters(0, 150, 104, 158, "man")));
 	
 	// Run the game loop
-	while(game.is_running())
+	while(Game::instance()->is_running())
 	{
-		game.handle_events();
-		game.update();
-		game.render();
+		Game::instance()->handle_events();
+		Game::instance()->update();
+		Game::instance()->render();
 		
 		SDL_Delay(10);
 	}
 	
-	game.clean();
+	Game::instance()->clean();
 
 	return 0;
 }
