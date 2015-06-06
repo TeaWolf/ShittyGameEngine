@@ -36,7 +36,7 @@ bool TextureManager::load(const std::string& file_name, const std::string& id, S
 
 	m_textures[id] = texture;
 
-	std::clog << "Successfuly added " << id << " to the map" << std::endl;
+	std::clog << "Successfully added " << id << " to the map" << std::endl;
 
 	return true;
 }
