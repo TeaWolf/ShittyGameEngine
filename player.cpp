@@ -2,24 +2,24 @@
 
 #include "player.h"
 
-void Player::init(int x, int y, int width, int height, const std::string& texture_id)
-{
-	GameObject::init(x, y, width, height, texture_id);
-}
+Player::Player(const ObjectLoadParameters* lparams)
+: SDLGameObject(lparams)
+{}
 
 void Player::update()
 {
-	GameObject::update();
-	m_y += 1;
+	SDLGameObject::update();
+	m_current_frame = int((SDL_GetTicks() / 100) % 6);      
+	m_x += 10;
 }
 
 void Player::draw(SDL_Renderer* renderer)
 {
-	GameObject::draw(renderer);
+	SDLGameObject::draw();
 }
 
 void Player::clean()
 {
-	GameObject::clean();
-	std::clog << "Player destroyed" << std::endl;
+	SDLGameObject::clean();
+	std::clog << "Player object cleaned up" << std::endl;
 }
