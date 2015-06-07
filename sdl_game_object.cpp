@@ -4,7 +4,7 @@
 
 // Set up basic class members
 SDLGameObject::SDLGameObject(const ObjectLoadParameters* lparams)
-: GameObject(lparams), m_pos(lparams->x, lparams->y)
+: GameObject(lparams), m_pos(lparams->x, lparams->y), m_vel(lparams->vel_x, lparams->vel_y), m_acc(lparams->acc_x, lparams->acc_y)
 {
 	m_width = lparams->width;
 	m_height = lparams->height;
@@ -13,13 +13,13 @@ SDLGameObject::SDLGameObject(const ObjectLoadParameters* lparams)
 
 	m_current_row = 0;
 	m_current_frame = 0;
-
-	// Free up memory taken by the params object (Should never be reused)
-	delete lparams;
 }
 
 void SDLGameObject::update()
-{}
+{
+	m_vel += m_acc;
+	m_pos += m_vel;
+}
 
 void SDLGameObject::draw()
 {
