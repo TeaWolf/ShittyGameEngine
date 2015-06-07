@@ -4,6 +4,7 @@
 
 #include "game_object.h"
 #include "game.h"
+#include "vector_2d.h"
 
 class SDLGameObject : public GameObject
 {
@@ -15,8 +16,7 @@ public:
 	void clean();
 
 protected:
-	int m_x;
-	int m_y;
+	Vector2D m_pos;
 
 	int m_width;
 	int m_height;

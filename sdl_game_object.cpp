@@ -4,18 +4,17 @@
 
 // Set up basic class members
 SDLGameObject::SDLGameObject(const ObjectLoadParameters* lparams)
-: GameObject(lparams)
+: GameObject(lparams), m_pos(lparams->x, lparams->y)
 {
-	m_x = lparams->x;
-	m_y = lparams->y;
 	m_width = lparams->width;
 	m_height = lparams->height;
+
 	m_texture_id = lparams->texture_id;
 
 	m_current_row = 0;
 	m_current_frame = 0;
 
-	// Free up memory
+	// Free up memory taken by the params object (Should never be reused)
 	delete lparams;
 }
 
@@ -24,7 +23,7 @@ void SDLGameObject::update()
 
 void SDLGameObject::draw()
 {
-	TextureManager::instance()->draw_frame(m_texture_id, m_x ,m_y ,m_width, m_height, m_current_row, m_current_frame, Game::instance()->get_renderer());
+	TextureManager::instance()->draw_frame(m_texture_id, m_pos.get_x(), m_pos.get_y(), m_width, m_height, m_current_row, m_current_frame, Game::instance()->get_renderer());
 }
 
 void SDLGameObject::clean()
