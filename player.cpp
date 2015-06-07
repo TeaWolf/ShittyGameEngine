@@ -9,8 +9,12 @@ Player::Player(const ObjectLoadParameters* lparams)
 void Player::update()
 {
 	SDLGameObject::update();
+
+	// Animate the player correctly
 	m_current_frame = int((SDL_GetTicks() / 100) % 6);      
-	m_x += 10;
+
+	// Move him fowards
+	m_pos.set_x(m_pos.get_x() + 10);
 }
 
 void Player::draw(SDL_Renderer* renderer)
