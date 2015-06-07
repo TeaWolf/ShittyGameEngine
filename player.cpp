@@ -12,9 +12,6 @@ void Player::update()
 
 	// Animate the player correctly
 	m_current_frame = int((SDL_GetTicks() / 100) % 6);      
-
-	// Move him fowards
-	m_pos.set_x(m_pos.get_x() + 10);
 }
 
 void Player::draw(SDL_Renderer* renderer)
