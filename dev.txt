@@ -3,4 +3,5 @@ Study the effeciency of singleton classes
 Do some better documentation in general (do some research online)
 Maybe consider renaming some shit
 Make sure that ressources are cleaned up properly and that there are no memory leaks
-Maybe reorganize the files a bit...
+Maybe reorganize the files a bit... folders?
+Rework the ObjectLoadParameters class
