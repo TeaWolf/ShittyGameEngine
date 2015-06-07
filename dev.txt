@@ -1,7 +1,9 @@
 Change the texture manager into some kind of sprite object system (maybe... think about effeciency)
 Study the effeciency of singleton classes
+Study effeciency of repeadetly calling a function of storing the value
 Do some better documentation in general (do some research online)
 Maybe consider renaming some shit
 Make sure that ressources are cleaned up properly and that there are no memory leaks
 Maybe reorganize the files a bit... folders?
-Rework the ObjectLoadParameters class
+Rework the ObjectLoadParameters class, maybe think of an alternative to that model
+Implement some delta time for better physics
