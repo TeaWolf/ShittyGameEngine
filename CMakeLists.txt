@@ -25,6 +25,7 @@ endif()
 add_executable(${prog_name}
 	game.cpp
 	texture_manager.cpp
+	input_handler.cpp
 
 	vector_2d.cpp
 
