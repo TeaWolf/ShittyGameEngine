@@ -9,7 +9,7 @@ ObjectLoadParameters::ObjectLoadParameters(
 	int p_width, int p_height,
 	const std::string& p_texture_id)
 :
-	x(p_x), y(p_y),
+	x{p_x}, y{p_y},
 	vel_x{p_vel_x}, vel_y{p_vel_y},
 	acc_x{p_acc_x}, acc_y{p_acc_y},
 	width(p_width), height(p_height),
