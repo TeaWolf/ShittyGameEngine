@@ -23,12 +23,14 @@ public:
 	void update();
 	void render();
 
+	void quit();
+
 	void clean();
 
 	SDL_Renderer* get_renderer() {return m_renderer;}
 	bool is_running() {return m_running;}
 
-protected:
+private:
 	Game() = default;
 	~Game() = default;
 	static Game* m_instance;

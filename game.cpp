@@ -98,6 +98,13 @@ void Game::render()
 	SDL_RenderPresent(m_renderer);
 }
 
+// Meerely quit the game, but do not clear ressources
+void Game::quit()
+{
+	std::clog << "Quitting game..." << std::endl;
+	m_running = false;
+}
+
 // Clean up all game ressources
 void Game::clean()
 {
