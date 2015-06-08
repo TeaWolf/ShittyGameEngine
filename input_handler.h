@@ -6,8 +6,6 @@
 #include <vector>
 #include <iostream>
 
-#include "game.h"
-
 class InputHandler
 {
 public:
@@ -15,6 +13,8 @@ public:
 
 	void init_joysticks();
 	bool joysticks_initialized() {return m_joysticks_initialized;}
+
+	bool got_quit() {return m_got_quit;}
 
 	void update();
 	void clean();
@@ -26,4 +26,6 @@ private:
 
 	std::vector<SDL_Joystick*> m_joysticks;
 	bool m_joysticks_initialized;
+
+	bool m_got_quit;
 };

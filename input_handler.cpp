@@ -44,13 +44,18 @@ void InputHandler::init_joysticks()
 		m_joysticks_initialized = false;
 }
 
+// Get info from the events
 void InputHandler::update()
 {
 	SDL_Event event;
-	while(SDL_PollEvent(&event))
+	while (SDL_PollEvent(&event))
 	{
-		if (event.type == SDL_QUIT)
-			Game::instance()->quit();
+		switch(event.type)
+		{
+		case SDL_QUIT:
+			m_got_quit = true;
+			break;
+		}
 	}
 }
 
