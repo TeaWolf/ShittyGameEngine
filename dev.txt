@@ -7,3 +7,4 @@ Make sure that ressources are cleaned up properly and that there are no memory l
 Maybe reorganize the files a bit... folders?
 Rework the ObjectLoadParameters class, maybe think of an alternative to that model
 Implement some delta time for better physics
+Better error checking in some situations
