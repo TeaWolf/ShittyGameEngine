@@ -8,3 +8,4 @@ Maybe reorganize the files a bit... folders?
 Rework the ObjectLoadParameters class, maybe think of an alternative to that model
 Implement some delta time for better physics
 Better error checking in some situations
+GET THE PLAYER TO STOP FUCKING WALKING
