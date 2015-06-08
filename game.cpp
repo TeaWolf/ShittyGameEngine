@@ -45,12 +45,15 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	}
 	else
 		std::clog << "Renderer creation successful" << std::endl;
-	
+
 	// TODO something a little better than this (like loading with the objects
 	// Image loading
 	if (TextureManager::instance()->load("../assets/frames_alpha.png", "man", m_renderer) == false)
 		return false;
-	
+
+	// Initialize input methods
+	InputHandler::instance()->init_joysticks();
+
 	// The game has officialy started
 	m_running = true;
 
@@ -67,16 +70,9 @@ void Game::add_object(GameObject* go)
 // Query events and update game objects
 void Game::handle_events()
 {
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch(event.type)
-		{
-		case SDL_QUIT:
-			m_running = false;
-			break;
-		}
-	}
+	InputHandler::instance()->update();
+	if (InputHandler::instance()->got_quit())
+		quit();
 }
 
 // Do Regular game update (like movement)
@@ -110,6 +106,9 @@ void Game::clean()
 {
 	// TODO get rid of all the game objects once the game is finished
 	std::clog << "Cleannig up..." << std::endl;
+
+	// Destroy all input ressources
+	InputHandler::instance()->clean();
 
 	// Destroy the TextureManager and all it's textures to prevent all hell breaking loose
 	TextureManager::instance()->clean();

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "texture_manager.h"
+#include "input_handler.h"
 #include "game_object.h"
 
 class SDLGameObject;
