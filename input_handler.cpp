@@ -29,6 +29,7 @@ void InputHandler::init_joysticks()
 			if (stick)
 			{
 				m_joysticks.push_back(stick);
+				m_joystick_values.push_back(std::array<Vector2D*, 2>{{new Vector2D{0, 0}, new Vector2D{0, 0}}});
 				std::clog << "Joystick opened: " << SDL_JoystickNameForIndex(i) << std::endl;
 			}
 			else
@@ -44,6 +45,21 @@ void InputHandler::init_joysticks()
 		m_joysticks_initialized = false;
 }
 
+// stick must be 0 or 1
+int InputHandler::x_value(int controller, int stick)
+{
+	if (m_joystick_values.size() > 0)	
+		return m_joystick_values[controller][stick]->get_x();
+	return 0;
+}
+int InputHandler::y_value(int controller, int stick)
+{
+	if (m_joystick_values.size() > 0)
+		return m_joystick_values[controller][stick]->get_y();
+	return 0;
+}
+		
+
 // Get info from the events
 void InputHandler::update()
 {
@@ -55,6 +71,31 @@ void InputHandler::update()
 		case SDL_QUIT:
 			m_got_quit = true;
 			break;
+
+		case SDL_JOYAXISMOTION:
+			int which_cont = event.jaxis.which;
+
+			// TODO please find a better way to write this, this is shit
+			// Playstation 3 schematic
+			if (event.jaxis.axis == 0)
+			{
+				if (event.jaxis.value > m_joystick_dead_zone)
+					m_joystick_values[which_cont][0]->set_x(1);
+				else if (event.jaxis.value < -m_joystick_dead_zone)
+					m_joystick_values[which_cont][0]->set_x(-1);
+				else m_joystick_values[which_cont][0]->set_x(0);
+			}
+			
+			if (event.jaxis.axis == 1)
+			{
+				if (event.jaxis.value > m_joystick_dead_zone)
+					m_joystick_values[which_cont][0]->set_y(1);
+				else if (event.jaxis.value < -m_joystick_dead_zone)
+					m_joystick_values[which_cont][0]->set_y(-1);
+				else m_joystick_values[which_cont][0]->set_y(0);
+			}
+
+			// TODO I've only done the first axis here
 		}
 	}
 }
@@ -69,10 +110,11 @@ void InputHandler::clean()
 			if (SDL_JoystickGetAttached(stick))
 				SDL_JoystickClose(stick);
 		}
-	}
-	m_joysticks.clear();
 
-	std::clog << "All joysticks closed" << std::endl;
+		m_joysticks.clear();
+
+		std::clog << "All joysticks closed" << std::endl;
+	}
 
 	// Free up memory occupied by the singleton instance
 	delete m_instance;
