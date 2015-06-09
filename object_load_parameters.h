@@ -16,6 +16,7 @@ public:
 	);
 	virtual ~ObjectLoadParameters() = default;
 
+	// TODO some fucking accessors please...
 	int x, y, width, height;
 	double vel_x, vel_y, acc_x, acc_y;
 	std::string texture_id;
