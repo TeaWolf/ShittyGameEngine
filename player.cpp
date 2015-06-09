@@ -8,15 +8,10 @@ Player::Player(const ObjectLoadParameters* lparams)
 
 void Player::handle_events()
 {
-	m_vel.set_x(0.5 * -InputHandler::instance()->x_value(0, 0) * 2);
-	m_vel.set_y(0.5 * -InputHandler::instance()->y_value(0, 0) * 2);
 }
 
 void Player::update()
 {
-	m_vel.set_x(0);
-	m_vel.set_y(0);
-
 	handle_events();
 
 	// Animate the player correctly
