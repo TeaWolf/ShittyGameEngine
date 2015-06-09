@@ -19,8 +19,8 @@ public:
 	void normalize();
 
 	// Accessors
-	double get_x() {return m_x;}
-	double get_y() {return m_y;}
+	double get_x() const {return m_x;}
+	double get_y() const {return m_y;}
 
 	void set_x(double x) {m_x = x;}
 	void set_y(double y) {m_y = y;}
