@@ -30,6 +30,10 @@ add_executable(${prog_name}
 	vector_2d.cpp
 
 	object_load_parameters.cpp
+
+	menu_state.cpp
+	play_state.cpp
+
 	sdl_game_object.cpp
 	player.cpp
 
