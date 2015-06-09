@@ -19,7 +19,7 @@ int main(int agrc, char**)
 	}
 
 	// Add the player object
-	ObjectLoadParameters* lparams = new ObjectLoadParameters{0, 150, 0, 0, 0.1, 0, 104, 158, "man"};
+	ObjectLoadParameters* lparams = new ObjectLoadParameters{0, 150, 0, 0, 0, 0, 104, 158, "man"};
 	Game::instance()->add_object(new Player(lparams));
 	delete lparams; lparams = 0;
 	
