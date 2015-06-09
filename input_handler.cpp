@@ -10,6 +10,14 @@ InputHandler* InputHandler::instance()
 	return m_instance;
 }
 
+InputHandler::InputHandler()
+{
+	// Iniyialize the mouse button values
+	// See if SDL has a SDL_MouseNumButtons or something
+	for (int i{0}; i < MOUSE_BUTTON::NUM_MOUSE_BUTTONS; i++)
+		m_mouse_button_states[i] = false;
+}
+
 // Initialize joystick sub stystem and load plugged in joysticks
 void InputHandler::init_joysticks()
 {
@@ -70,9 +78,65 @@ void InputHandler::update()
 		{
 		case SDL_QUIT:
 			m_got_quit = true;
-			break;
+		break;
 
+		case SDL_MOUSEBUTTONDOWN:
+			on_mouse_button_down(event);
+		break;
+		case SDL_MOUSEBUTTONUP:
+			on_mouse_button_up(event);
+		break;
+		case SDL_MOUSEMOTION:
+			on_mouse_motion(event);
+		break;
+		
 		case SDL_JOYAXISMOTION:
+			on_joystick_axis_move(event);
+		break;
+		}
+	}
+}
+
+void InputHandler::on_mouse_button_down(const SDL_Event& event)
+{
+	switch(event.button.button)
+	{
+	case SDL_BUTTON_LEFT:
+		m_mouse_button_states[MOUSE_BUTTON::LEFT] = true;
+	break;
+	case SDL_BUTTON_MIDDLE:
+		m_mouse_button_states[MOUSE_BUTTON::MIDDLE] = true;
+	break;
+	case SDL_BUTTON_RIGHT:
+		m_mouse_button_states[MOUSE_BUTTON::RIGHT] = true;
+	break;
+	}
+}
+
+void InputHandler::on_mouse_button_up(const SDL_Event& event)
+{
+	switch(event.button.button)
+	{
+	case SDL_BUTTON_LEFT:
+		m_mouse_button_states[MOUSE_BUTTON::LEFT] = false;
+	break;
+	case SDL_BUTTON_MIDDLE:
+		m_mouse_button_states[MOUSE_BUTTON::MIDDLE] = false;
+	break;
+	case SDL_BUTTON_RIGHT:
+		m_mouse_button_states[MOUSE_BUTTON::RIGHT] = false;
+	break;
+	}
+}
+
+void InputHandler::on_mouse_motion(const SDL_Event& event)
+{
+	m_mouse_pos.set_x(event.motion.x);
+	m_mouse_pos.set_y(event.motion.y);
+}
+
+void InputHandler::on_joystick_axis_move(const SDL_Event& event)
+{
 			int which_cont = event.jaxis.which;
 
 			// TODO please find a better way to write this, this is shit
@@ -81,7 +145,7 @@ void InputHandler::update()
 			{
 				if (event.jaxis.value > m_joystick_dead_zone)
 					m_joystick_values[which_cont][0]->set_x(1);
-				else if (event.jaxis.value < -m_joystick_dead_zone)
+				else if (event.jaxis.value < (-m_joystick_dead_zone))
 					m_joystick_values[which_cont][0]->set_x(-1);
 				else m_joystick_values[which_cont][0]->set_x(0);
 			}
@@ -90,14 +154,12 @@ void InputHandler::update()
 			{
 				if (event.jaxis.value > m_joystick_dead_zone)
 					m_joystick_values[which_cont][0]->set_y(1);
-				else if (event.jaxis.value < -m_joystick_dead_zone)
+				else if (event.jaxis.value < (-m_joystick_dead_zone))
 					m_joystick_values[which_cont][0]->set_y(-1);
 				else m_joystick_values[which_cont][0]->set_y(0);
 			}
 
 			// TODO I've only done the first axis here
-		}
-	}
 }
 
 void InputHandler::clean()
