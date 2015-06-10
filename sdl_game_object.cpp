@@ -29,5 +29,4 @@ void SDLGameObject::draw()
 void SDLGameObject::clean()
 {
 	std::clog << "SDLGameObject cleaned up" << std::endl;
-
 }
