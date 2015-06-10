@@ -9,6 +9,8 @@
 class PlayState : public GameState
 {
 public:
+	~PlayState() = default;
+
 	void update();
 	void render();
 
