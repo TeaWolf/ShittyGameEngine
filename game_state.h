@@ -7,6 +7,9 @@
 class GameState
 {
 public:
+	GameState() = default;
+	virtual ~GameState() = default;
+
 	virtual void update() = 0;
 	virtual void render() = 0;
 
