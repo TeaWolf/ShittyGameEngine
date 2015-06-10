@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "menu_state.h"
+#include "game_state.h"
 
 class PlayState : public GameState
 {
