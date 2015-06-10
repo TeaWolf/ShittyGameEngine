@@ -26,6 +26,7 @@ add_executable(${prog_name}
 	game.cpp
 	texture_manager.cpp
 	input_handler.cpp
+	game_state_machine.cpp
 
 	vector_2d.cpp
 
@@ -36,6 +37,8 @@ add_executable(${prog_name}
 
 	sdl_game_object.cpp
 	player.cpp
+
+	menu_button.cpp
 
 	main.cpp
 )
