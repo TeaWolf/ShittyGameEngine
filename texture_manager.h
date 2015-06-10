@@ -18,6 +18,7 @@ public:
 	void draw_frame(const std::string& id, int x, int y, int width, int height, int current_row, int current_frame, SDL_Renderer* renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	void clean();
+	void clear_texture(const std::string& file_name);
 
 private:
 	TextureManager() = default;

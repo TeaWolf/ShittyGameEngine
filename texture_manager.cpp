@@ -69,3 +69,12 @@ void TextureManager::clean()
 	delete m_instance;
 	m_instance = 0;
 }
+
+// Clear a specific texture from the map
+void TextureManager::clear_texture(const std::string& id)
+{
+	std::clog << "Deleting texture " << id << std::endl;
+
+	SDL_DestroyTexture(m_textures[id]);
+	m_textures.erase(id);
+}
