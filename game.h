@@ -8,7 +8,8 @@
 
 #include "texture_manager.h"
 #include "input_handler.h"
-#include "game_object.h"
+
+#include "game_state_machine.h"
 
 class SDLGameObject;
 class Game
@@ -17,8 +18,6 @@ public:
 	static Game* instance();
 
 	bool init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_height, bool p_fullscreen);
-
-	void add_object(GameObject* go);
 
 	void handle_events();
 	void update();
@@ -40,6 +39,4 @@ private:
 
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
-
-	std::vector<GameObject*> m_game_objects;
 };

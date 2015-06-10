@@ -46,12 +46,8 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 	else
 		std::clog << "Renderer creation successful" << std::endl;
 
-	// TODO something a little better than this (like loading with the objects
-	// Image loading
-	if (TextureManager::instance()->load("../assets/frames_alpha.png", "man", m_renderer) == false)
-		return false;
-
 	// Initialize input methods
+	// TODO make this somehow optional
 	InputHandler::instance()->init_joysticks();
 
 	// The game has officialy started
@@ -59,12 +55,6 @@ bool Game::init(const char* p_title, int p_xpos, int p_ypos, int p_width, int p_
 
 	std::clog << "Initialization successful" << std::endl;
 	return true;
-}
-
-// Adds an object to the vector
-void Game::add_object(GameObject* go)
-{
-	m_game_objects.push_back(go);
 }
 
 // Query events and update game objects
@@ -78,8 +68,9 @@ void Game::handle_events()
 // Do Regular game update (like movement)
 void Game::update()
 {
-	for (GameObject* go : m_game_objects)
-		go->update();
+//	for (GameObject* go : m_game_objects)
+//		go->update();
+	GameStateMachine::instance()->update();
 }
 
 // Update m_renderer and present it to the screen
@@ -88,8 +79,9 @@ void Game::render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
 	SDL_RenderClear(m_renderer);
 
-	for (GameObject* go : m_game_objects)
-		go->draw();
+//	for (GameObject* go : m_game_objects)
+//		go->draw();
+	GameStateMachine::instance()->render();
 
 	SDL_RenderPresent(m_renderer);
 }
@@ -109,6 +101,9 @@ void Game::clean()
 
 	// Destroy all input ressources
 	InputHandler::instance()->clean();
+
+	// Destroy all states
+	GameStateMachine::instance()->clean();
 
 	// Destroy the TextureManager and all it's textures to prevent all hell breaking loose
 	TextureManager::instance()->clean();
