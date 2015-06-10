@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "player.h"
+#include "menu_state.h"
 
 constexpr int FPS = 60;
 constexpr int DELAY_TIME = 1000.0 / FPS;
@@ -18,10 +19,8 @@ int main(int agrc, char**)
 		exit(EXIT_FAILURE);
 	}
 
-	// Add the player object
-	ObjectLoadParameters* lparams = new ObjectLoadParameters{0, 150, 0, 0, 0, 0, 104, 158, "man"};
-	Game::instance()->add_object(new Player(lparams));
-	delete lparams; lparams = 0;
+	// Load the initial state
+	GameStateMachine::instance()->change_state(new MenuState);
 	
 	// Run the game loop
 	while(Game::instance()->is_running())
