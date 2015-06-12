@@ -2,10 +2,11 @@
 
 #include "menu_button.h"
 
-MenuButton::MenuButton(const ObjectLoadParameters* lparams)
-: SDLGameObject(lparams)
+MenuButton::MenuButton(const ObjectLoadParameters* lparams, void (*callback)())
+: SDLGameObject{lparams}, m_callback{callback}
 {
 	m_current_state = MOUSE_OUT;
+	m_depressed = false;
 } 
 
 void MenuButton::draw()
@@ -31,7 +32,16 @@ void MenuButton::update()
 		m_current_state = BUTTON_STATE::MOUSE_OVER;
 
 		if (InputHandler::instance()->get_mouse_button_state(InputHandler::MOUSE_BUTTON::LEFT))
+		{
 			m_current_state = BUTTON_STATE::MOUSE_CLICK;
+			m_depressed = true;
+		}
+		else if (m_depressed)
+		{
+			// Call the callback function on mouse button release
+			m_depressed = false;
+			m_callback();
+		}
 	}
 	else
 		m_current_state = BUTTON_STATE::MOUSE_OUT;
