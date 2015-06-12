@@ -8,6 +8,9 @@
 #include "game.h"
 #include "menu_button.h"
 
+#include "game_state_machine.h"
+#include "play_state.h"
+
 class MenuState : public GameState
 {
 public:

@@ -27,9 +27,13 @@ bool MenuState::on_enter()
 	// Load the buttons objects
 	// TODO fuck that fucking parameter object
 	ObjectLoadParameters* lparams = new ObjectLoadParameters(0, 0, 0, 0, 0, 0, 255, 49, "blue_button");
-	m_game_objects.push_back(new MenuButton(lparams));
+	m_game_objects.push_back(new MenuButton(lparams,
+				[] () {GameStateMachine::instance()->change_state(new PlayState());}
+				));
 	lparams->y += 150;
-	m_game_objects.push_back(new MenuButton(lparams));
+	m_game_objects.push_back(new MenuButton(lparams,
+				[] () {Game::instance()->quit();}
+				));
 	delete lparams;
 
 	return true;
