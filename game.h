@@ -8,7 +8,6 @@
 
 #include "texture_manager.h"
 #include "input_handler.h"
-
 #include "game_state_machine.h"
 
 class SDLGameObject;
