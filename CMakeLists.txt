@@ -1,7 +1,7 @@
 # Teawolf
 
 # We will call the project and the executable by the same name
-set(prog_name sdl_exercise)
+set(prog_name ShittyGameEngine)
 
 # Set the project name
 project(${prog_name})
