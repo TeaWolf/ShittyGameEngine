@@ -16,6 +16,10 @@ InputHandler::InputHandler()
 	// See if SDL has a SDL_MouseNumButtons or something
 	for (int i{0}; i < MOUSE_BUTTON::NUM_MOUSE_BUTTONS; i++)
 		m_mouse_button_states[i] = false;
+
+	// TODO maybe initialize the mouse position too
+	m_joysticks_initialized = false;
+	m_got_quit = false;
 }
 
 // Initialize joystick sub stystem and load plugged in joysticks
