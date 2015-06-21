@@ -1,6 +1,6 @@
 // TeaWolf
 
-#include "Game.h"
+#include "game.h"
 
 // The singleton instance function
 Game* Game::m_instance = 0;
