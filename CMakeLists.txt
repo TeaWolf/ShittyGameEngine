@@ -44,4 +44,4 @@ add_executable(${prog_name}
 )
 
 # Link all the disired libraries
-target_link_libraries(${prog_name} sdl2 sdl2_image)
+target_link_libraries(${prog_name} SDL2 SDL2_image)
